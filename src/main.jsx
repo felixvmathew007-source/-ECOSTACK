@@ -21,11 +21,27 @@ const features = [
 function App() {
   const [page, setPage] = useState("Home");
   const [name, setName] = useState(() => localStorage.getItem("eco-name") || "");
-  const [distance, setDistance] = useState(5);
-  const [electricity, setElectricity] = useState(3);
-  const [diet, setDiet] = useState("Mixed");
-  const [transport, setTransport] = useState("Bus");
-  const [results, setResults] = useState(null);
+  
+const [distance, setDistance] = useState(() =>
+  Number(localStorage.getItem("eco-distance") ?? 5)
+);
+
+const [electricity, setElectricity] = useState(() =>
+  Number(localStorage.getItem("eco-electricity") ?? 3)
+);
+
+const [diet, setDiet] = useState(() =>
+  localStorage.getItem("eco-diet") || "Mixed"
+);
+
+const [transport, setTransport] = useState(() =>
+  localStorage.getItem("eco-transport") || "Bus"
+);
+
+const [results, setResults] = useState(() =>
+  localStorage.getItem("eco-results")
+);
+
   const [completed, setCompleted] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("eco-completed") || "[]");
@@ -43,6 +59,19 @@ function App() {
   useEffect(() => {
     if (name) localStorage.setItem("eco-name", name);
   }, [name]);
+
+useEffect(() => {
+  localStorage.setItem("eco-distance", String(distance));
+  localStorage.setItem("eco-electricity", String(electricity));
+  localStorage.setItem("eco-diet", diet);
+  localStorage.setItem("eco-transport", transport);
+
+  if (results !== null) {
+    localStorage.setItem("eco-results", results);
+  } else {
+    localStorage.removeItem("eco-results");
+  }
+}, [distance, electricity, diet, transport, results]);
 
   const points = completed.reduce((sum, i) => sum + challenges[i].points, 0);
   const progress = Math.round((completed.length / challenges.length) * 100);
