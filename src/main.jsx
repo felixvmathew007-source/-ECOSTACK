@@ -61,6 +61,10 @@ const treeStage =
 
   points >= 10 ? 1 : 0;
 
+  const points = completed.reduce((sum, i) => sum + challenges[i].points, 0);
+  const progress = Math.round((completed.length / challenges.length) * 100);
+
+  
 const treeStages = [
 
   { emoji: "🌰", title: "Tiny Seed", message: "Complete a challenge to plant your future." },
@@ -117,9 +121,6 @@ useEffect(() => {
     localStorage.removeItem("eco-results");
   }
 }, [distance, electricity, diet, transport, results]);
-
-  const points = completed.reduce((sum, i) => sum + challenges[i].points, 0);
-  const progress = Math.round((completed.length / challenges.length) * 100);
 
   function calculateFootprint() {
     const transportFactor = {
