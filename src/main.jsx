@@ -476,53 +476,113 @@ function App() {
               </article>
             </div>
 
-            <section className="panel ecotree-panel">
-              <div className="panel-heading">
-                <div>
-                  <span className="eyebrow">YOUR VIRTUAL TREE</span>
-                  <h2>Watch your EcoTree grow</h2>
-                  <p>
-                    Complete challenges to earn points and unlock new
-                    growth stages.
-                  </p>
-                </div>
-                <span className="ecotree-icon">{treeStage.icon}</span>
-              </div>
+       
+<section className="panel ecotree-panel">
+  <div className="panel-heading">
+    <div>
+      <span className="eyebrow">BUILD A GREENER CAMPUS</span>
+      <h2>🌿 EcoStack Tower</h2>
+      <p>
+        Every sustainable action adds another block to our
+        greener future.
+      </p>
+    </div>
+  </div>
 
-              <div className="ecotree-progress">
-                <div className="progress-track">
-                  <div
-                    className="progress-fill"
-                    style={{
-                      width: `${Math.min((points / 180) * 100, 100)}%`,
-                    }}
-                  />
-                </div>
-                <p>{points} eco points earned</p>
-              </div>
+  <div
+    style={{
+      textAlign: "center",
+      padding: "20px 8px",
+      overflow: "hidden",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column-reverse",
+        alignItems: "center",
+        gap: "5px",
+        minHeight: "170px",
+        justifyContent: "flex-start",
+      }}
+    >
+      {Array.from({
+        length: Math.max(1, completed.length),
+      }).map((_, index) => (
+        <div
+          key={index}
+          style={{
+            width: `${Math.min(100, 42 + (index % 3) * 7)}%`,
+            maxWidth: "300px",
+            minHeight: "28px",
+            borderRadius: "6px",
+            background: [
+              "#2e7d32",
+              "#388e3c",
+              "#43a047",
+              "#558b2f",
+              "#689f38",
+            ][index % 5],
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+            fontSize: "13px",
+            fontWeight: "600",
+            boxShadow: "0 3px 6px #00000018",
+            padding: "4px 8px",
+            boxSizing: "border-box",
+          }}
+        >
+          <span>{["🌱", "♻️", "💧", "🌍", "🌿"][index % 5]}</span>
+          <span>Eco Block {index + 1}</span>
+        </div>
+      ))}
+    </div>
 
-              <h3>{treeStage.title}</h3>
-              <p>{treeStage.description}</p>
+    <h3 style={{ marginTop: "18px" }}>
+      {completed.length === challenges.length
+        ? "🏆 EcoStack Champion!"
+        : completed.length === 0
+        ? "🌱 Start Your Tower!"
+        : "🌳 Your Tower Is Growing!"}
+    </h3>
 
-              <div className="tree-stage-list">
-                {treeStages.map((stage) => (
-                  <div
-                    key={stage.title}
-                    className={`tree-stage ${
-                      points >= stage.min ? "unlocked" : "locked"
-                    }`}
-                  >
-                    <span>{stage.icon}</span>
-                    <small>{stage.title}</small>
-                  </div>
-                ))}
-              </div>
+    <p>
+      {completed.length} of {challenges.length} eco blocks built
+    </p>
 
-              <p className="muted-text">
-                Your EcoTree is a virtual progress indicator. It
-                represents your activity on this website.
-              </p>
-            </section>
+    <div className="progress-track">
+      <div
+        className="progress-fill"
+        style={{
+          width: `${progress}%`,
+        }}
+      />
+    </div>
+
+    <p style={{ fontSize: "13px", marginTop: "10px" }}>
+      {points} points earned · {progress}% challenge progress
+    </p>
+
+    <button
+      className="btn-primary"
+      onClick={() => navigate("challenges")}
+      style={{ marginTop: "10px" }}
+    >
+      {completed.length === challenges.length
+        ? "Review Challenges"
+        : "Build Your Next Block →"}
+    </button>
+
+    <p className="muted-text" style={{ marginTop: "14px" }}>
+      Complete an eco challenge to add a block to your tower.
+      Your progress is saved in this browser.
+    </p>
+  </div>
+</section>
+
 
             <div className="dashboard-grid">
               <section className="panel">
