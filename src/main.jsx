@@ -51,7 +51,52 @@ const [results, setResults] = useState(() =>
   });
   const [showWelcome, setShowWelcome] = useState(false);
   const [notice, setNotice] = useState("");
+const treeStage =
 
+  points >= 70 ? 4 :
+
+  points >= 40 ? 3 :
+
+  points >= 20 ? 2 :
+
+  points >= 10 ? 1 : 0;
+
+const treeStages = [
+
+  { emoji: "🌰", title: "Tiny Seed", message: "Complete a challenge to plant your future." },
+
+  { emoji: "🌱", title: "New Sprout", message: "Your sustainability journey has begun!" },
+
+  { emoji: "🌿", title: "Growing Sapling", message: "Keep making greener choices!" },
+
+  { emoji: "🌳", title: "EcoTree", message: "Your eco-habits are taking root!" },
+
+  { emoji: "🌳🌼", title: "Green Guardian", message: "Amazing! You're growing a greener future." }
+
+];
+
+const campusLevel =
+
+  points >= 100 ? 4 :
+
+  points >= 70 ? 3 :
+
+  points >= 40 ? 2 :
+
+  points >= 10 ? 1 : 0;
+
+const campusStages = [
+
+  "Campus waiting to bloom",
+
+  "First green steps",
+
+  "A greener campus",
+
+  "Blooming campus",
+
+  "Eco campus champion"
+  ];
   useEffect(() => {
     localStorage.setItem("eco-completed", JSON.stringify(completed));
   }, [completed]);
